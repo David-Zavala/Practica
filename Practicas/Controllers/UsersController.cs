@@ -1,7 +1,7 @@
 using System.Data;
 using Microsoft.AspNetCore.Mvc;
 using Practicas.Data;
-using Practicas.Entities;
+using Practicas.DTOs;
 using Practicas.Interfaces;
 
 namespace Practicas.Controllers
@@ -11,15 +11,15 @@ namespace Practicas.Controllers
         private readonly IUsersRepository _usersRepository = usersRepository;
 
         [HttpGet]
-        public async Task<ActionResult<List<Usuario>>> GetUsers()
+        public async Task<ActionResult<List<User>>> GetUsers()
         {
             return await _usersRepository.GetUsers();
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<Usuario>> Login(string email, string password)
+        public async Task<ActionResult<User>> Login(string email, string password)
         {
-            Usuario usuario = await _usersRepository.GetUserByEmail(email);
+            User usuario = await _usersRepository.GetUserByEmail(email);
             if (usuario.Id == -1) return Unauthorized("That email is not registered, try using another or register first");
             if (usuario.Password != password) return Unauthorized("Invalid Password");
             return usuario;

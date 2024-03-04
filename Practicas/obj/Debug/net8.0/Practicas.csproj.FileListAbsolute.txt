@@ -70,3 +70,4 @@
 /Users/davoz/Desktop/PracticasProyecto/Backend/obj/Debug/net8.0/Practicas.dll
 /Users/davoz/Desktop/PracticasProyecto/Backend/obj/Debug/net8.0/refint/Practicas.dll
 /Users/davoz/Desktop/PracticasProyecto/Backend/obj/Debug/net8.0/Practicas.pdb
+/Users/davoz/Desktop/PracticasProyecto/Practicas/obj/Debug/net8.0/Practicas.sourcelink.json

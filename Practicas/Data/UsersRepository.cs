@@ -1,8 +1,10 @@
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Transactions;
+using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
-using Practicas.Entities;
+using Practicas.DTOs;
 using Practicas.Interfaces;
 
 namespace Practicas.Data
@@ -11,22 +13,21 @@ namespace Practicas.Data
     {
         private readonly string _connectionString = configuration.GetConnectionString("DefaultConnection");
 
-        public async Task<List<Usuario>> GetUsers()
+        public async Task<List<User>> GetUsers()
         {
-            List<Usuario> usuarios = [];
+            List<User> usuarios = [];
             using (SqlConnection connection = new(_connectionString))
             {
                 await connection.OpenAsync();
 
-                SqlCommand command = new("SELECT id,name,email,password FROM Users", connection);
+                SqlCommand command = new("SELECT name,email,password FROM Users", connection);
                 using DbDataReader reader = await command.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
                 {
-                    Usuario usuario = new()
+                    User usuario = new()
                     {
-                        Id = reader.GetInt32(reader.GetOrdinal("id")),
-                        Name = reader.GetString(reader.GetOrdinal("name")),
                         Email = reader.GetString(reader.GetOrdinal("email")),
+                        Name = reader.GetString(reader.GetOrdinal("name")),
                         Password = reader.GetString(reader.GetOrdinal("password"))
                     };
                     usuarios.Add(usuario);
@@ -35,28 +36,68 @@ namespace Practicas.Data
 
             return usuarios;
         }
-        public async Task<Usuario> GetUserByEmail(string email)
+        public async Task<User> GetUserByEmail(string email)
         {
-            Usuario usuario;
+            User usuario;
             using (SqlConnection connection = new(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "SELECT id,name,email,password FROM Users WHERE email = @Email";
+                string query = "SELECT email,name,password,birthdate FROM Users WHERE email = @Email";
                 SqlCommand command = new(query, connection);
                 command.Parameters.AddWithValue("@Email",email);
                 using DbDataReader reader = await command.ExecuteReaderAsync();
-                if (!reader.HasRows) return new Usuario{Id = -1,Name = "",Email="",Password=""};
+                if (!reader.HasRows) return new User{Name = "",Email="",Password=""};
                 await reader.ReadAsync();
                 usuario = new()
                 {
-                    Id = reader.GetInt32(reader.GetOrdinal("id")),
-                    Name = reader.GetString(reader.GetOrdinal("name")),
                     Email = reader.GetString(reader.GetOrdinal("email")),
-                    Password = reader.GetString(reader.GetOrdinal("password"))
+                    Name = reader.GetString(reader.GetOrdinal("name")),
+                    Password = reader.GetString(reader.GetOrdinal("password")),
+                    BirthDate = reader.GetDateTime(reader.GetOrdinal("birthdate")).Date.ToString("yyyy-MM-dd")
                 };
             }
-
             return usuario;
+        }
+
+        public async Task<User> PutUserByEmail(User user)
+        {
+            using (SqlConnection connection = new(_connectionString))
+            {
+                await connection.OpenAsync();
+                SqlTransaction transaction = connection.BeginTransaction();
+                
+                string query;
+                if (user.BirthDate == null) query = "UPDATE Users SET name = @Name, password = @Password WHERE Id = 1";
+                else query = "UPDATE Users SET name = @Name, password = @Password, birthdate = @Birthdate WHERE Id = 1";
+                
+                SqlCommand command = new(query, connection, transaction);
+                
+                command.Parameters.AddWithValue("@Name",user.Name); 
+                command.Parameters.AddWithValue("@Password",user.Password);
+                if (user.BirthDate != null) command.Parameters.AddWithValue("@Birthdate",user.BirthDate);
+                
+                try {await command.ExecuteNonQueryAsync();}
+                catch (SqlException){await transaction.RollbackAsync(); return new User{Name = "",Email="",Password=""};}
+
+                transaction.Commit();
+                transaction.Dispose();
+                connection.Close();
+            }
+            return new User{
+                Email = user.Email,
+                Name = user.Name,
+                Password = user.Password,
+            };
+        }
+
+        public Task<ActionResult> DeleteUserByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<User> PostUser(User user)
+        {
+            throw new NotImplementedException();
         }
     }
 }
