@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Practicas.DTOs
 {
     public class User
