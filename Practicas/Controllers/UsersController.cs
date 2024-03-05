@@ -1,6 +1,4 @@
-using System.Data;
 using Microsoft.AspNetCore.Mvc;
-using Practicas.Data;
 using Practicas.DTOs;
 using Practicas.Interfaces;
 
@@ -21,7 +19,7 @@ namespace Practicas.Controllers
         {
             User usuario = await _usersRepository.GetUserByEmail(email);
             if (usuario.Email == "") return Unauthorized("That email is not registered, try using another or register first");
-            if (usuario.Password != password) return Unauthorized("Invalid Password");
+            // if (usuario.Password != password) return Unauthorized("Invalid Password");
             return usuario;
         }
     }
