@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "12SEtutUN0JRUe0KvUXavaUha0qVcUz5+OdLG/8TcXjtvjmY+bUp9neIcpjU5g9HsdFFPhbVln2N0JaTGvQV7Q==",
+  "dgSpecHash": "0LALbNkQq+lHpDNW0MeNIT7tEb1+BWqqdNx7CRC7uDph/vc0CeVRqP+g5SPwEPPwRZoAF0BriR9jJLgxblA2JQ==",
   "success": true,
   "projectFilePath": "/Users/davoz/Desktop/PracticasProyecto/Practicas/Practicas.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,10 @@
     "/Users/davoz/.nuget/packages/k4os.hash.xxhash/1.0.8/k4os.hash.xxhash.1.0.8.nupkg.sha512",
     "/Users/davoz/.nuget/packages/microsoft.aspnetcore.openapi/8.0.1/microsoft.aspnetcore.openapi.8.0.1.nupkg.sha512",
     "/Users/davoz/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/Users/davoz/.nuget/packages/microsoft.identitymodel.abstractions/7.4.0/microsoft.identitymodel.abstractions.7.4.0.nupkg.sha512",
+    "/Users/davoz/.nuget/packages/microsoft.identitymodel.jsonwebtokens/7.4.0/microsoft.identitymodel.jsonwebtokens.7.4.0.nupkg.sha512",
+    "/Users/davoz/.nuget/packages/microsoft.identitymodel.logging/7.4.0/microsoft.identitymodel.logging.7.4.0.nupkg.sha512",
+    "/Users/davoz/.nuget/packages/microsoft.identitymodel.tokens/7.4.0/microsoft.identitymodel.tokens.7.4.0.nupkg.sha512",
     "/Users/davoz/.nuget/packages/microsoft.netcore.platforms/3.1.0/microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "/Users/davoz/.nuget/packages/microsoft.netcore.targets/1.1.0/microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "/Users/davoz/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
@@ -30,6 +34,7 @@
     "/Users/davoz/.nuget/packages/system.data.sqlclient/4.8.6/system.data.sqlclient.4.8.6.nupkg.sha512",
     "/Users/davoz/.nuget/packages/system.diagnostics.diagnosticsource/7.0.2/system.diagnostics.diagnosticsource.7.0.2.nupkg.sha512",
     "/Users/davoz/.nuget/packages/system.drawing.common/4.7.0/system.drawing.common.4.7.0.nupkg.sha512",
+    "/Users/davoz/.nuget/packages/system.identitymodel.tokens.jwt/7.4.0/system.identitymodel.tokens.jwt.7.4.0.nupkg.sha512",
     "/Users/davoz/.nuget/packages/system.io/4.3.0/system.io.4.3.0.nupkg.sha512",
     "/Users/davoz/.nuget/packages/system.io.pipelines/6.0.3/system.io.pipelines.6.0.3.nupkg.sha512",
     "/Users/davoz/.nuget/packages/system.reflection/4.3.0/system.reflection.4.3.0.nupkg.sha512",

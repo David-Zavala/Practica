@@ -1,1 +1,85 @@
-<p>home works!</p>
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+
+                        <div class="mb-md-5 mt-md-4 pb-5">
+
+                            <h2 class="fw-bold mb-2 text-uppercase">Registro de documento</h2>
+                            <p class="text-white-50 mb-5">Porfavor llene el formulario</p>
+
+                            <form [formGroup]="registerDocForm" (ngSubmit)="registerDoc()">
+
+                                <div class="form-outline form-white mb-4">
+                                    <input formControlName="Nombre" type="text" id="Nombre" name="Nombre" class="form-control form-control-lg" (blur)="requiredValidator($event);"/>
+                                    <label class="form-label" for="Nombre">Nombre</label>
+                                </div>
+
+                                <div class="form-outline form-white mb-4">
+                                    <div class="alert alert-danger mt-2" [hidden]="!emailErrorMessage">{{emailErrorMessage}}</div>
+                                    <input formControlName="Correo" type="text" id="Correo" name="Correo" class="form-control form-control-lg" (blur)="emailValidator(); requiredValidator($event);" />
+                                    <label class="form-label" for="Correo">Correo</label>
+                                </div>
+                                
+                                <div class="disprow form-outline form-white mb-4">
+                                    <div>
+                                        <div class="date-input">
+                                            <input class="long form-control form-control-lg" formControlName="FechaNacimientoY" name="FechaNacimientoY" type="number" min="0000" max="2024" inputmode="numeric" maxlength="4" placeholder="YYYY" (input)="focusNext($event, monthInput); limitInputLength($event);" (blur)="checkLimit($event); requiredValidator($event);" />
+                                            <span>/</span>
+                                            <input class="short form-control form-control-lg" formControlName="FechaNacimientoM" name="FechaNacimientoM" type="number" min="01" max="12" inputmode="numeric" maxlength="2" placeholder="MM" (input)="focusNext($event, dayInput); limitInputLength($event);" (blur)="checkLimit($event);" #monthInput />
+                                            <span>/</span>
+                                            <input class="short form-control form-control-lg" formControlName="FechaNacimientoD" name="FechaNacimientoD" type="number" min="01" max="31" inputmode="numeric" maxlength="2" placeholder="DD" (input)="focusNext($event, ageInput); limitInputLength($event);" (blur)="checkLimit($event);" #dayInput />
+                                        </div>
+                                        <label class="form-label" for="FN">Fecha de nacimiento</label>
+                                    </div>
+                                    <div>
+                                        <input formControlName="Edad" name="Edad" class="long form-control form-control-lg" type="number" min="1" inputmode="numeric" maxlength="2" id="Edad" name="Edad" (blur)="checkLimit($event);" #ageInput />
+                                        <label class="form-label" for="Edad">Edad</label>
+                                    </div>
+                                </div>
+                                <div class="disprow form-outline form-white mb-4">
+                                    <div class="selectContainer">
+                                        <div class="alert alert-danger mt-2" [hidden]="!educationErrorMessage[0]">{{educationErrorMessage[0]}}</div>
+                                        <select formControlName="EducacionL" id="EducacionL" name="EducacionL" class="form-control form-control-lg" (blur)="selectValidator($event, 0)">
+                                            <option value="-1"></option>
+                                            <option value="3">Maestria</option>
+                                            <option value="2">Carrera</option>
+                                            <option value="1">Preparatoria</option>
+                                            <option value="0">Educación básica</option>
+                                        </select>
+                                        <label class="form-label" for="Educacion">Educacion</label>
+                                    </div>
+                                    <div class="selectContainer">
+                                        <div class="alert alert-danger mt-2" [hidden]="!educationErrorMessage[1]">{{educationErrorMessage[1]}}</div>
+                                        <select formControlName="EducacionP" id="EducacionP" name="EducacionP" class="form-control form-control-lg" (blur)="selectValidator($event, 1)">
+                                            <option value="-1"></option>
+                                            <option value="2">Terminada</option>
+                                            <option value="1">En progreso</option>
+                                            <option value="0">No terminada</option>
+                                        </select>
+                                        <label class="form-label" for="Educacion">Progreso</label>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-outline form-white mb-4">
+                                    <input formControlName="Documento" type="file" id="Documento" name="Documento" accept=".pdf,.jpg,.jpeg">
+                                    <label class="form-label" for="Documento">Sube un archivo PDF o JPG:</label>
+                                    <a class="btn btn-outline-light" (click)="deleteDoc()">Eliminar Archivo</a>
+                                </div>
+
+                                <div class="alert alert-danger mt-2" [hidden]="!registerDocErrorMessage">{{registerDocErrorMessage}}</div>
+
+                                <button [disabled]="registerDocForm.invalid" class="btn btn-outline-light btn-lg px-5" type="submit">Registrar</button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

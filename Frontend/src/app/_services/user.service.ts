@@ -1,27 +1,35 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map } from 'rxjs';
 import { environment } from '../../environments/environment.development';
-import { User } from '../_models/user';
+import { User, UserLogin } from '../_models/user';
+import { Router } from '@angular/router';
+import { Doc } from '../_models/doc';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AccountService {
+export class UserService {
   baseUrl = environment.apiUrl;
   private currentUserSource = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
-  login(model: any) {
-    return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
-      map((response: User) => {
-        const user = response;
-        if (user) {
-          this.setCurrentUser(user);
-        }
-      })
+  login(model: User) {
+    return this.http.post<User>(this.baseUrl + 'users/login', model).subscribe(
+      (user: any) => {
+        model = {
+          Name: user.name,
+          Email: user.email,
+          BirthDate: user.birthDate,
+        };
+        this.setCurrentUser(model);
+        this.router.navigate(['/'])
+      },
+      (error) => {
+        console.error('Error en la solicitud HTTP:', error);
+      }
     )
   }
 
@@ -36,15 +44,15 @@ export class AccountService {
   }
 
   setCurrentUser(user: User) {
-    user.roles = [];
-    //const roles = this.getDecodedToken(user.token).role;
-    //Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('email', JSON.stringify(user.Email));
+    localStorage.setItem('username', JSON.stringify(user.Name));
+    localStorage.setItem('authorized', "True");
     this.currentUserSource.next(user);
   }
 
   logout() {
-    localStorage.removeItem('user');
+    localStorage.removeItem('username');
+    localStorage.removeItem('authorized');
     this.currentUserSource.next(null)
   }
 }

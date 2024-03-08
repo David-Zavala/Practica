@@ -30,7 +30,7 @@ namespace Practicas.Data
         }
         public async Task<User> GetUserByEmail(string email)
         {
-            UserLogin usuario;
+            User usuario;
             using (SqlConnection connection = new(_connectionString))
             {
                 await connection.OpenAsync();
@@ -44,8 +44,7 @@ namespace Practicas.Data
                 {
                     Email = reader.GetString(reader.GetOrdinal("email")),
                     Name = reader.GetString(reader.GetOrdinal("name")),
-                    BirthDate = reader.GetDateTime(reader.GetOrdinal("birthdate")).Date.ToString("yyyy-MM-dd"),
-                    Password = reader.GetString(reader.GetOrdinal("password"))
+                    BirthDate = reader.GetDateTime(reader.GetOrdinal("birthdate")).Date.ToString("yyyy-MM-dd")
                 };
             }
             return usuario;
@@ -163,5 +162,29 @@ namespace Practicas.Data
             Name = reader.GetString(reader.GetOrdinal("name")),
             BirthDate = reader.GetDateTime(reader.GetOrdinal("birthdate")).Date.ToString("yyyy-MM-dd")
         };
+
+        public async Task<UserLogin> Login(UserLogin user)
+        {
+            UserLogin retrievedUser;
+            using (SqlConnection connection = new(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "SELECT email,name,password,birthdate FROM Users WHERE email = @Email";
+                SqlCommand command = new(query, connection);
+                command.Parameters.AddWithValue("@Email",user.Email);
+                using DbDataReader reader = await command.ExecuteReaderAsync();
+                if (!reader.HasRows) return new UserLogin{Email = "NoEmail",Password=""};
+                await reader.ReadAsync();
+                retrievedUser = new()
+                {
+                    Email = reader.GetString(reader.GetOrdinal("email")),
+                    Name = reader.GetString(reader.GetOrdinal("name")),
+                    BirthDate = reader.GetDateTime(reader.GetOrdinal("birthdate")).Date.ToString("yyyy-MM-dd"),
+                    Password = reader.GetString(reader.GetOrdinal("password"))
+                };
+                if (user.Password != retrievedUser.Password) return new UserLogin{Email = "NoPassword", Password=""};
+            }
+            return retrievedUser;
+        }
     }
 }

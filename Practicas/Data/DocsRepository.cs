@@ -77,11 +77,11 @@ namespace Practicas.Data
                     connection.Close();
                     return new Doc{};
                 }
-
                 transaction.Commit();
                 transaction.Dispose();
                 connection.Close();
             }
+            doc.Id = -2;
             return doc;
         }
 

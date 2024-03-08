@@ -1,8 +1,8 @@
 export interface User {
-    username: string;
-    token: string;
-    photoUrl: string;
-    knownAs: string;
-    gender: string;
-    roles: string[];
+    Name?: string;
+    Email: string;
+    BirthDate?: string;
+}
+export interface UserLogin extends User {
+    Password: string;
 }

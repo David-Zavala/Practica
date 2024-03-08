@@ -1,0 +1,42 @@
+.date-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.date-input input {
+    text-align: center;
+    margin: 0 5px;
+}
+
+.long {
+    width: 100px;
+}
+
+.short {
+    width: 80px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"] {
+    -webkit-appearance: none;
+    margin: 0; /* Por si acaso */
+}
+
+.disprow {
+    display: flex;
+    justify-content: space-between;
+}
+.disprow input {
+    text-align: center;
+    margin: 0 5px;
+}
+.disprow select {
+    text-align: center;
+    margin: 0 5px;
+    width: 95%;
+}
+.selectContainer {
+    width: 100%;
+}

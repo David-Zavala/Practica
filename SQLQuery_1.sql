@@ -1,0 +1,2 @@
+--CREATE TABLE Docs (id INT PRIMARY KEY IDENTITY(1,1) NOT NULL, name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, birthdate DATE NOT NULL, education VARCHAR(255) NOT NULL, DocPath VARCHAR(255) NOT NULL);
+--INSERT INTO Docs (name, email, birthdate, education, docpath) VALUES ('David','d@d.com','2002-03-06','Carrera en progreso','../SavedDocs/a.txt');

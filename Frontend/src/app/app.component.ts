@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,16 +11,12 @@ export class AppComponent implements OnInit{
   title: string = 'Frontend';
   users: any;
 
-  constructor(private http: HttpClient){
-
-  }
-
+  constructor(private http: HttpClient, private router: Router){ }
   ngOnInit(): void {
-    this.http.get('https://localhost:4300/api/users').subscribe({
-      next: response => this.users = response,
-      error: error => console.log(error),
-      complete: () => console.log('Request has completed')
-    })
+    const userName = localStorage.getItem('username');
+    if (!userName) {
+      this.router.navigate(['/login'])
+    }
   }
 
 }

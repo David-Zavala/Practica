@@ -71,3 +71,8 @@
 /Users/davoz/Desktop/PracticasProyecto/Backend/obj/Debug/net8.0/refint/Practicas.dll
 /Users/davoz/Desktop/PracticasProyecto/Backend/obj/Debug/net8.0/Practicas.pdb
 /Users/davoz/Desktop/PracticasProyecto/Practicas/obj/Debug/net8.0/Practicas.sourcelink.json
+/Users/davoz/Desktop/PracticasProyecto/Practicas/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/davoz/Desktop/PracticasProyecto/Practicas/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/davoz/Desktop/PracticasProyecto/Practicas/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/Users/davoz/Desktop/PracticasProyecto/Practicas/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/Users/davoz/Desktop/PracticasProyecto/Practicas/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
